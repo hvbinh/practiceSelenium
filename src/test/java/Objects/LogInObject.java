@@ -17,7 +17,7 @@ public class LogInObject extends LoadableComponent<LogInObject> {
 
     @Override
     public void load() {
-
+        Browsers.getDriver().get("https://kiemthutudong.com/blog");
     }
 
     @Override
@@ -35,7 +35,7 @@ public class LogInObject extends LoadableComponent<LogInObject> {
     WebElement LogIn_btn;
     @FindBy(id = "admin_color_coffee")
     WebElement coffeeColor_bar;
-    @FindBy(xpath = "//div/input[@id='admin_bar_front']")
+    @FindBy(xpath = "//input[@id='admin_bar_front']")
     WebElement checkbox_btn;
     @FindBy(id="first_name")
     WebElement firstName_txt;
@@ -49,10 +49,8 @@ public class LogInObject extends LoadableComponent<LogInObject> {
     WebElement area_txt;
     @FindBy(id="submit")
     WebElement submit_btn;
-    @FindBy(className = "ab-item")
-    WebElement userName_menu;
-    @FindBy(linkText = "Edit My Profile")
-    WebElement link_txt;
+    @FindBy(xpath = "//div[@id='message']/p/strong")
+    WebElement profile_message;
 
     public void check()
     {
@@ -79,11 +77,10 @@ public class LogInObject extends LoadableComponent<LogInObject> {
         //return  Browsers.getDriver().getTitle();
 
     }
-    public void updateProfile()
+    public String updateProfile()
     {
-        /*Actions act = new Actions(Browsers.getDriver());
-        act.moveToElement(userName_menu).click(link_txt).perform();
-        coffeeColor_bar.click();*/
+
+        coffeeColor_bar.click();
         check();
         firstName_txt.sendKeys("Binh");
         lastName_txt.sendKeys("Ha");
@@ -92,6 +89,7 @@ public class LogInObject extends LoadableComponent<LogInObject> {
         url.sendKeys("abc.com");
         area_txt.sendKeys("this is text area");
         submit_btn.click();
+        return profile_message.getText();
     }
 
 
