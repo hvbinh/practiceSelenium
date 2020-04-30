@@ -4,6 +4,7 @@ import Supports.Browsers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.Select;
@@ -52,17 +53,8 @@ public class LogInObject extends LoadableComponent<LogInObject> {
     @FindBy(xpath = "//div[@id='message']/p/strong")
     WebElement profile_message;
 
-    public void check()
-    {
-        if(!checkbox_btn.isSelected())
-        {
-            checkbox_btn.click();
-        }
-        else
-        {
-            checkbox_btn.click();
-        }
-    }
+
+
 
     public void loadPage()
     {
@@ -77,20 +69,74 @@ public class LogInObject extends LoadableComponent<LogInObject> {
         //return  Browsers.getDriver().getTitle();
 
     }
-    public String updateProfile()
+    public String updateProfile(String color, boolean b, String firstName, String lastName, String displayName, String webSite, String biographyInfo)
     {
 
-        coffeeColor_bar.click();
-        check();
-        firstName_txt.sendKeys("Binh");
-        lastName_txt.sendKeys("Ha");
+        adminColorScheme(color);
+        checkToolbar(b);
+        setFirstName(firstName);
+        setLastName(lastName);
         Select select = new Select(selectName_dropdown);
-        select.selectByVisibleText("binhha;a");
-        url.sendKeys("abc.com");
-        area_txt.sendKeys("this is text area");
+        displayNamePublicky(displayName);
+        webSite(webSite);
+        biographicalInfo(biographyInfo);
         submit_btn.click();
         return profile_message.getText();
     }
+    public String reSetProfile()
+    {
+        adminColorScheme("Default");
+        checkToolbar(true);
+        firstName_txt.clear();
+        lastName_txt.clear();
+        url.clear();
+        area_txt.clear();
+        submit_btn.click();
+        return profile_message.getText();
+    }
+    public void adminColorScheme(String color)
+    {
+           Browsers.getElement(How.XPATH,String.format("//div/label[.='%s']/preceding-sibling::input[@type='radio']", color)).click();
+    }
+    public void checkToolbar(boolean b)
+    {
+        if(b==true)
+        {
+            if(!checkbox_btn.isSelected())
+            {
+                checkbox_btn.click();
+            }
+        }
+        else if(b==false)
+        {
+            if(checkbox_btn.isSelected())
+            {
+                checkbox_btn.click();
+            }
+        }
+    }
+    public void setFirstName(String firstName)
+    {
+        firstName_txt.sendKeys(firstName);
+    }
+    public void setLastName(String lastName)
+    {
+        firstName_txt.sendKeys(lastName);
+    }
+    public void displayNamePublicky(String displayName)
+    {
+        Select select = new Select(selectName_dropdown);
+        select.selectByVisibleText(displayName);
+    }
+    public void webSite(String str)
+    {
+        url.sendKeys(str);
+    }
+    public void biographicalInfo(String str)
+    {
+        area_txt.sendKeys(str);
+    }
+
 
 
 }
