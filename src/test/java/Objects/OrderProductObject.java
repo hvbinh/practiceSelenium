@@ -87,7 +87,7 @@ public class OrderProductObject extends LoadableComponent<OrderProductObject> {
     WebElement register_button;
     @FindBy(xpath = "//button[@type='submit']/span[contains(text(),'Proceed to checkout')]")
     WebElement proceedToCheckOut3_button;
-    @FindBy(id="cgv")
+    @FindBy(id = "cgv")
     WebElement agree_checkbox;
     @FindBy(xpath = "//button[@type='submit']/span[contains(text(),'Proceed to checkout')]")
     WebElement proceedToCheckOut4_button;
@@ -97,6 +97,21 @@ public class OrderProductObject extends LoadableComponent<OrderProductObject> {
     WebElement confirmOrder_button;
     @FindBy(xpath = "//p[@class='alert alert-success']")
     WebElement success_message;
+    @FindBy(id = "search_query_top")
+    WebElement search_textfield;
+    @FindBy(xpath = "//button[@class='btn btn-default button-search']")
+    WebElement search_button;
+    @FindBy(id="email")
+    WebElement email_textfield;
+    @FindBy(id="SubmitLogin")
+    WebElement signIn_button;
+    @FindBy(xpath="//a[@title='Back to orders']")
+    WebElement backToOrder_link;
+    @FindBy(xpath = "//span[contains(text(),'Home')]")
+    WebElement home_button;
+
+
+
 
     public WebElement productName(String name)
     {
@@ -127,11 +142,11 @@ public class OrderProductObject extends LoadableComponent<OrderProductObject> {
         proceedToCheckOut2_button.click();
 
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyymmddHHmmss");
+        /*DateFormat dateFormat = new SimpleDateFormat("yyyymmddHHmmss");
         Calendar cal = Calendar.getInstance();
-        String time = dateFormat.format(cal.getTime());
+        String time = dateFormat.format(cal.getTime());*/
 
-        emailAddress_textfield.sendKeys("test"+time+"@test.com");
+        emailAddress_textfield.sendKeys("testabc1@test.com");
 
         createAccount_button.click();
 
@@ -181,8 +196,61 @@ public class OrderProductObject extends LoadableComponent<OrderProductObject> {
         addressAlias_textfield.clear();
         addressAlias_textfield.sendKeys("only test");
         register_button.click();
+    }
+    public String searchOrderProduct(String name)
+    {
+        JavascriptExecutor js = (JavascriptExecutor) Browsers.getDriver();
+        search_textfield.sendKeys(name);
+        search_button.click();
+        WebDriverWait wait = new WebDriverWait(Browsers.getDriver(), 20);
+        Actions act = new Actions(Browsers.getDriver());
+        WebElement e = productName(name);
+        wait.until(ExpectedConditions.visibilityOf(e));
+
+        act.moveToElement(e).perform();
+        e.findElement(By.xpath(String.format("//a[@title='%s']/../../../..//a[@class='button ajax_add_to_cart_button btn btn-default']",name))).click();
+        wait.until(ExpectedConditions.visibilityOf(proceedToCheckOut1_button));
+        proceedToCheckOut1_button.click();
+        wait.until(ExpectedConditions.visibilityOf(proceedToCheckOut2_button));
+        proceedToCheckOut2_button.click();
+
+        email_textfield.sendKeys("testabc1@test.com");
+        passWord_Textfield.sendKeys("123456");
+        signIn_button.click();
+
+        wait.until(ExpectedConditions.visibilityOf(proceedToCheckOut3_button));
+        proceedToCheckOut3_button.click();
+
+        wait.until(ExpectedConditions.visibilityOf(proceedToCheckOut4_button));
+        agree_checkbox.click();
+        proceedToCheckOut4_button.click();
+
+        wait.until(ExpectedConditions.visibilityOf(payMyCheck_option));
+        payMyCheck_option.click();
+
+        wait.until(ExpectedConditions.visibilityOf(confirmOrder_button));
+        confirmOrder_button.click();
+
+
+        //js.executeScript("window.scrollBy(0,1000)");
+        wait.until(ExpectedConditions.visibilityOf(backToOrder_link));
+        backToOrder_link.click();
+
+
+        //js.executeScript("window.scrollBy(0,1000)");
+        wait.until(ExpectedConditions.visibilityOf(home_button));
+        home_button.click();
+
+        return Browsers.getDriver().getTitle();
+
+
+
+
+
+
 
     }
+
 
 
 
