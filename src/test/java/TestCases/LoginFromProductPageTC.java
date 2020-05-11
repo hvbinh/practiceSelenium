@@ -19,6 +19,7 @@ public class LoginFromProductPage {
         public void searProduct()
         {
             order.searchOrderProduct("Blouse");
+            System.out.println("abc");
         }
 
 
