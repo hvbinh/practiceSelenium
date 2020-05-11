@@ -1,18 +1,27 @@
 package TestCases;
 
-import Objects.LogInObject;
+import Objects.*;
 import Supports.Browsers;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class LoginFromProductPage {
-    LogInObject logIn;
-    @BeforeClass
-    public  void setUp()
-    {
-        Browsers.open("chrome");
-        logIn = new LogInObject();
-        logIn.load();
-    }
-    
+
+        OderProductObject order;
+        @BeforeClass
+        public  void setUp()
+        {
+            Browsers.open("chrome");
+            order = new OderProductObject();
+            order.load();
+        }
+        @Test
+        public void searProduct()
+        {
+            order.searchOrderProduct("Blouse");
+        }
+
+
+
 
 }
