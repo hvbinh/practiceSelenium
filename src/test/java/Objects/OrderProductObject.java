@@ -109,6 +109,17 @@ public class OrderProductObject extends LoadableComponent<OrderProductObject> {
     WebElement backToOrder_link;
     @FindBy(xpath = "//span[contains(text(),'Home')]")
     WebElement home_button;
+    @FindBy(xpath = "//a[@class='login']")
+    WebElement signIn_link;
+    @FindBy(xpath = "//a[@title='Information']")
+    WebElement personalInfo_link;
+    @FindBy(xpath = "//input[@id='old_passwd']")
+    WebElement currentPass_textfield;
+    @FindBy(xpath = "//input[@id='confirmation']")
+    WebElement confirmPass_textfield;
+    @FindBy(xpath = "//button[@type='submit']")
+    WebElement save_button;
+
 
 
 
@@ -244,7 +255,36 @@ public class OrderProductObject extends LoadableComponent<OrderProductObject> {
         return Browsers.getDriver().getTitle();
 
 
-
+    }
+    public void updateProfile()
+    {
+        signIn_link.click();
+        WebDriverWait wait = new WebDriverWait(Browsers.getDriver(), 20);
+        wait.until(ExpectedConditions.visibilityOf(email_textfield));
+        email_textfield.sendKeys("testabc1@test.com");
+        passWord_Textfield.sendKeys("123456");
+        signIn_button.click();
+        wait.until(ExpectedConditions.visibilityOf(personalInfo_link));
+        personalInfo_link.click();
+        firstName1_textfield.clear();
+        firstName1_textfield.sendKeys("Tony a");
+        lastName1_textfield.clear();
+        lastName1_textfield.sendKeys("Fer a");
+        Select day = new Select(day_dropdown);
+        day.selectByValue("1");
+        Select month = new Select(month_dropdown);
+        month.selectByValue("5");
+        Select year = new Select(year_dropdown);
+        year.selectByValue("1980");
+        currentPass_textfield.sendKeys("123456");
+        passWord_Textfield.sendKeys("1234567");
+        confirmPass_textfield.sendKeys("1234567");
+        receiveNewLetter_checkbox.click();
+        receiveNewLetter_checkbox.click();
+        receiveSpecialOffer_checkbox.click();
+        receiveSpecialOffer_checkbox.click();
+        //save_button.click();
+        //wait.until()
 
 
 

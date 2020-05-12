@@ -5,21 +5,21 @@ import Supports.Browsers;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class LoginFromProductPage {
+public class LoginFromProductPageTC {
 
-        OderProductObject order;
+        OrderProductObject order;
         @BeforeClass
         public  void setUp()
         {
             Browsers.open("chrome");
-            order = new OderProductObject();
+            order = new OrderProductObject();
             order.load();
         }
         @Test
         public void searProduct()
         {
-            order.searchOrderProduct("Blouse");
-            System.out.println("abc");
+            order.updateProfile();
+
         }
 
 
