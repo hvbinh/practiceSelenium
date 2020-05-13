@@ -117,9 +117,10 @@ public class OrderProductObject extends LoadableComponent<OrderProductObject> {
     WebElement currentPass_textfield;
     @FindBy(xpath = "//input[@id='confirmation']")
     WebElement confirmPass_textfield;
-    @FindBy(xpath = "//button[@type='submit']")
+    @FindBy(xpath = "//button[@name='submitIdentity']")
     WebElement save_button;
-
+    @FindBy(xpath = "//ul[@class='footer_links clearfix']//a[1]")
+    WebElement backToYourAccount_link;
 
 
 
@@ -256,13 +257,13 @@ public class OrderProductObject extends LoadableComponent<OrderProductObject> {
 
 
     }
-    public void updateProfile()
+    public String updateProfile()
     {
         signIn_link.click();
         WebDriverWait wait = new WebDriverWait(Browsers.getDriver(), 20);
         wait.until(ExpectedConditions.visibilityOf(email_textfield));
         email_textfield.sendKeys("testabc1@test.com");
-        passWord_Textfield.sendKeys("123456");
+        passWord_Textfield.sendKeys("1234567");
         signIn_button.click();
         wait.until(ExpectedConditions.visibilityOf(personalInfo_link));
         personalInfo_link.click();
@@ -276,18 +277,17 @@ public class OrderProductObject extends LoadableComponent<OrderProductObject> {
         month.selectByValue("5");
         Select year = new Select(year_dropdown);
         year.selectByValue("1980");
-        currentPass_textfield.sendKeys("123456");
-        passWord_Textfield.sendKeys("1234567");
-        confirmPass_textfield.sendKeys("1234567");
+        currentPass_textfield.sendKeys("1234567");
+        passWord_Textfield.sendKeys("12345678");
+        confirmPass_textfield.sendKeys("12345678");
         receiveNewLetter_checkbox.click();
         receiveNewLetter_checkbox.click();
         receiveSpecialOffer_checkbox.click();
         receiveSpecialOffer_checkbox.click();
-        //save_button.click();
-        //wait.until()
-
-
-
+        save_button.click();
+        wait.until(ExpectedConditions.visibilityOf(backToYourAccount_link));
+        backToYourAccount_link.click();
+        return Browsers.getDriver().getTitle();
 
     }
 
