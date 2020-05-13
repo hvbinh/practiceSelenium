@@ -2,6 +2,7 @@ package TestCases;
 
 import Objects.*;
 import Supports.Browsers;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -15,10 +16,12 @@ public class LoginFromProductPageTC {
             order = new OrderProductObject();
             order.load();
         }
-        @Test
-        public void searProduct()
+        @Test (description = "verify update profile successfully")
+        public void updateProfile()
         {
-            order.updateProfile();
+            String actual = order.updateProfile();
+            String expect = "My account - My Store";
+            Assert.assertEquals(actual, expect);
 
         }
 
