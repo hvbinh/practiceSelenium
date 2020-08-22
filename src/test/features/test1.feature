@@ -1,4 +1,4 @@
 Feature: test1
-  Scenario: login with correct username1, password0
+  Scenario: login with correct username1, password2
 
 
